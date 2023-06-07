@@ -62,7 +62,7 @@ const NavBar = () => {
     </>
   );
   return (
-    <div className="navbar sticky top-0 px-8 bg-white py-5 items-center">
+    <div className="navbar md:px-8 bg-white py-5 items-center">
       <div className="navbar-start  ">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -88,8 +88,8 @@ const NavBar = () => {
             {navItem}
           </ul>
         </div>
-        <Link className="btn btn-ghost normal-case text-xl">
-          <img src={logo} alt="" />
+        <Link className="btn btn-ghost normal-case md:ml-0 ml-10 text-xl">
+          <img src={logo} className="md:w-auto w-28" alt="" />
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
