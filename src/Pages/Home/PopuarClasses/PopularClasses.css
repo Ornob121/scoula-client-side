@@ -1,0 +1,12 @@
+.details-info {
+  visibility: hidden;
+}
+
+.card-div {
+  cursor: pointer;
+}
+
+.card-div:hover .details-info {
+  visibility: visible;
+  transition-delay: 0.2s;
+}

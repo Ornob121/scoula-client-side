@@ -3,7 +3,7 @@ import "./Slider.css";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import banner1 from "../../../assets/images/footer/banner2.svg";
 import banner2 from "../../../assets/images/footer/banner4.jpg";
-import banner3 from "../../../assets/images/footer/teacherImage.jpg";
+import banner3 from "../../../assets/images/footer/teacherImg.jpg";
 import banner5 from "../../../assets/images/footer/banner5.jpg";
 
 const Slider = () => {
