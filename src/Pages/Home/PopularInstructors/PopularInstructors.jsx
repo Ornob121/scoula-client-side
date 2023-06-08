@@ -3,7 +3,7 @@ import bg from "../../../assets/images/footer/insructorBG.png";
 
 const PopularInstructors = () => {
   const popularInstructors = useLoaderData();
-  console.log(popularInstructors);
+  //   console.log(popularInstructors);
   return (
     <div
       className="px-20 pt-12 pb-10"
