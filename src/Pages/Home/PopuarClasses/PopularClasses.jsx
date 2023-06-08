@@ -3,7 +3,7 @@ import "./PopularClasses.css";
 
 const PopularClasses = () => {
   const popularClasses = useLoaderData();
-  console.log(popularClasses);
+  // console.log(popularClasses);
   return (
     <div className="my-12 md:px-20">
       <h2 className="capitalize text-3xl font-medium text-center">

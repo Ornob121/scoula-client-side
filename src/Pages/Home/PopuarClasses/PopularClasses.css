@@ -8,5 +8,6 @@
 
 .card-div:hover .details-info {
   visibility: visible;
-  transition-delay: 0.2s;
+  transition-delay: 0.3s;
+  transition-timing-function: ease-in-out;
 }
