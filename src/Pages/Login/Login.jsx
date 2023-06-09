@@ -1,9 +1,41 @@
 import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 import { FaArrowLeft } from "react-icons/fa";
+import { useForm } from "react-hook-form";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Providers/AuthProviders";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { signInUser } = useContext(AuthContext);
+  const [error, setError] = useState("");
+  const { register, handleSubmit, reset } = useForm();
+  const onSubmit = (data) => {
+    setError("");
+    signInUser(data.email, data.password)
+      .then((result) => {
+        console.log(result);
+        Swal.fire({
+          icon: "success",
+          title: "Great",
+          text: "User Login Successful",
+        });
+        setError("");
+        reset();
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+        if (err.message.includes("user-not-found")) {
+          setError("User Not Found");
+        }
+        if (err.message.includes("wrong-password")) {
+          setError("Wrong Password");
+        }
+      });
+  };
+
   return (
     <div className="my-20 px-20 shadow-2xl w-2/3 mx-auto  pb-28">
       <h2 className="text-center font-bold text-4xl pb-4 pt-12">
@@ -19,7 +51,7 @@ const Login = () => {
         <p className="text-center text-blue-500">Not a Member? SignUp now</p>
       </Link>
       <div className="px-32">
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="py-4">
             <label
               className="relative font-medium left-20 bg-white text-xl top-3"
@@ -32,7 +64,7 @@ const Login = () => {
               type="email"
               name="email"
               id="email"
-              required
+              {...register("email", { required: true })}
             />
           </div>
           <div className="pb-4">
@@ -47,14 +79,15 @@ const Login = () => {
               type="password"
               name="password"
               id="name"
-              required
+              {...register("password", { required: true })}
             />
           </div>
+          <p className="text-center font-bold text-xl text-red-500">{error}</p>
           <button className="w-full py-3 mt-5 bg-yellow-400 hover:bg-black hover:text-white text-xl font-medium">
             Login
           </button>
         </form>
-        <SocialLogin title={"Login With"} />
+        <SocialLogin title={"Login With"} text="Login Successful" />
       </div>
     </div>
   );
