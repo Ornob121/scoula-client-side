@@ -1,12 +1,45 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Providers/AuthProviders";
+import Swal from "sweetalert2";
 
 const Classes = () => {
   const [courses, setCourses] = useState([]);
+  const { user } = useContext(AuthContext);
   useEffect(() => {
     fetch("http://localhost:5000/courses")
       .then((res) => res.json())
       .then((data) => setCourses(data));
   }, []);
+
+  const handleSelectClass = (course) => {
+    console.log(course);
+    const selectedCourse = {
+      name: course.className,
+      image: course.image,
+      availableSeats: course.availableSeats,
+      instructorEmail: course.instructorEmail,
+      instructorName: course.instructorImage,
+      price: course.price,
+      email: user.email,
+    };
+    fetch("http://localhost:5000/selectedClasses", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(selectedCourse),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          Swal.fire({
+            icon: "success",
+            title: "Great",
+            text: "This Class is booked",
+          });
+        }
+      });
+  };
 
   return (
     <div className="py-20 px-20 bg-[#F3F4F7]">
@@ -34,6 +67,7 @@ const Classes = () => {
                 <p>Price: ${course.coursePrice}</p>
               </div>
               <button
+                onClick={() => handleSelectClass(course)}
                 disabled={!course.availableSeats}
                 className={`w-full py-4 bg-yellow-400 text-xl font-bold hover:bg-black hover:text-white mt-5 ${
                   course.availableSeats ? "" : "btn-disabled"

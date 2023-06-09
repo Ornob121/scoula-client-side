@@ -1,7 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/images/logo.svg";
+import { useContext } from "react";
+import { AuthContext } from "../../../Providers/AuthProviders";
 
 const NavBar = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((err) => console.log(err.message));
+  };
   const navItem = (
     <>
       <li className="text-xl">
@@ -34,31 +42,42 @@ const NavBar = () => {
           Classes
         </NavLink>
       </li>
-      <li className="text-xl">
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "text-blue-500 border-b-2 border-blue-500" : ""
-          }
-          to="/dashboard"
-        >
-          Dashboard
-        </NavLink>
-      </li>
+      {user && (
+        <li className="text-xl">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "text-blue-500 border-b-2 border-blue-500" : ""
+            }
+            to="/dashboard"
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
     </>
   );
 
   const logItems = (
     <>
-      <button className="text-xl btn btn-info">
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "text-blue-500 border-b-2 border-blue-500" : ""
-          }
-          to="/login"
+      {user ? (
+        <button
+          onClick={handleLogOut}
+          className="text-xl text-white btn btn-error"
         >
-          Login
-        </NavLink>
-      </button>
+          <NavLink>Logout</NavLink>
+        </button>
+      ) : (
+        <button className="text-xl btn btn-info">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "text-blue-500 border-b-2 border-blue-500" : ""
+            }
+            to="/login"
+          >
+            Login
+          </NavLink>
+        </button>
+      )}
     </>
   );
   return (

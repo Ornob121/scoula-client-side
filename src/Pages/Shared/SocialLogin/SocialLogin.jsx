@@ -24,6 +24,7 @@ const SocialLogin = ({ title, text }) => {
         })
           .then((res) => res.json())
           .then((data) => {
+            navigate("/");
             if (data.acknowledged) {
               Swal.fire({
                 icon: "success",
@@ -31,7 +32,6 @@ const SocialLogin = ({ title, text }) => {
                 text: text,
               });
             }
-            navigate("/");
           });
       })
       .catch((err) => {
