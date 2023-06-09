@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
 import { useForm } from "react-hook-form";
@@ -12,6 +12,7 @@ const SignUp = () => {
   const { createUser } = useContext(AuthContext);
   const [passErr, setPassErr] = useState("");
   const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
 
   const {
     register,
@@ -117,16 +118,17 @@ const SignUp = () => {
               {...register("email", { required: true })}
             />
           </div>
-          <div className="pb-4">
+          <div className="">
             <label
               className="relative font-medium left-20 bg-white text-xl top-3"
               htmlFor=""
             >
               Password
             </label>
+
             <input
               className="border p-3 border-gray-300 w-full text-xl outline-yellow-400 shadow-md"
-              type="password"
+              type={show ? "text" : "password"}
               name="password"
               id="name"
               {...register("password", {
@@ -135,6 +137,17 @@ const SignUp = () => {
                 pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[a-z])/,
               })}
             />
+            {show ? (
+              <FaEye
+                className=" text-3xl text-yellow-400 relative left-[550px] bottom-10 cursor-pointer"
+                onClick={() => setShow(false)}
+              />
+            ) : (
+              <FaEyeSlash
+                onClick={() => setShow(!show)}
+                className="text-3xl text-blue-500 relative left-[550px] bottom-10 cursor-pointer"
+              />
+            )}
             {errors.password?.type === "required" && (
               <p className="text-red-600">Password is required</p>
             )}
@@ -148,7 +161,7 @@ const SignUp = () => {
               </p>
             )}
           </div>
-          <div className="pb-4">
+          <div className="">
             <label
               className="relative font-medium left-20 bg-white text-xl top-3"
               htmlFor=""
@@ -157,10 +170,22 @@ const SignUp = () => {
             </label>
             <input
               className="border p-3 border-gray-300 w-full text-xl outline-yellow-400 shadow-md"
-              type="password"
+              type={show ? "text" : "password"}
               name="confirmPassword"
               {...register("confirmPassword", { required: true })}
             />
+
+            {show ? (
+              <FaEye
+                className=" text-3xl text-yellow-400 relative left-[550px] bottom-10 cursor-pointer"
+                onClick={() => setShow(false)}
+              />
+            ) : (
+              <FaEyeSlash
+                onClick={() => setShow(!show)}
+                className="text-3xl text-blue-500 relative left-[550px] bottom-10 cursor-pointer"
+              />
+            )}
             <p className="text-red-500">{passErr}</p>
           </div>
           <div className="pb-4">

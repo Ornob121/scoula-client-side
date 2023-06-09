@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
@@ -10,6 +10,8 @@ const Login = () => {
   const navigate = useNavigate();
   const { signInUser } = useContext(AuthContext);
   const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
+
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = (data) => {
     setError("");
@@ -76,11 +78,23 @@ const Login = () => {
             </label>
             <input
               className="border p-3 border-gray-300 w-full text-xl outline-yellow-400 shadow-md"
-              type="password"
+              type={show ? "text" : "password"}
               name="password"
               id="name"
               {...register("password", { required: true })}
             />
+
+            {show ? (
+              <FaEye
+                className=" text-3xl text-yellow-400 relative left-[550px] bottom-10 cursor-pointer"
+                onClick={() => setShow(false)}
+              />
+            ) : (
+              <FaEyeSlash
+                onClick={() => setShow(!show)}
+                className="text-3xl text-blue-500 relative left-[550px] bottom-10 cursor-pointer"
+              />
+            )}
           </div>
           <p className="text-center font-bold text-xl text-red-500">{error}</p>
           <button className="w-full py-3 mt-5 bg-yellow-400 hover:bg-black hover:text-white text-xl font-medium">
