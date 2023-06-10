@@ -9,6 +9,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import Dashboard from "../Layout/Dashboard";
 import SelectedClasses from "../Pages/Dashboard/SelectedClasses/SelectedClasses";
 import PrivateRoute from "./PrivateRoute";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,12 @@ const router = createBrowserRouter([
             <SelectedClasses />
           </PrivateRoute>
         ),
+      },
+
+      // ! Admin routes
+      {
+        path: "manage-users",
+        element: <ManageUsers />,
       },
     ],
   },

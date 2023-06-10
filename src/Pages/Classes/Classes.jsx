@@ -21,6 +21,7 @@ const Classes = () => {
       instructorName: course.instructorName,
       price: course.coursePrice,
       email: user.email,
+      classId: course._id,
     };
     fetch("http://localhost:5000/selectedClasses", {
       method: "POST",
