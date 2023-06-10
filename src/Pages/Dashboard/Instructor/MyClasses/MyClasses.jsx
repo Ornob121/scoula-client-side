@@ -1,11 +1,35 @@
 import { FaTrashAlt } from "react-icons/fa";
 import useMyClasses from "../../../../Hooks/useMyClasses";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 const MyClasses = () => {
-  const [myClasses] = useMyClasses();
-  console.log(myClasses);
+  const [myClasses, refetch] = useMyClasses();
+  //   console.log(myClasses);
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure you want to delete this?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:5000/courses/instructors/${id}`)
+          .then((data) => {
+            if (data.data.deletedCount) {
+              refetch();
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            }
+          })
+          .catch((error) => console.log(error));
+      }
+    });
+  };
 
   return (
     <div className="py-20">
@@ -60,7 +84,7 @@ const MyClasses = () => {
                 <th>
                   <button
                     className="btn bg-red-500"
-                    // onClick={() => handleDelete(myClass._id)}
+                    onClick={() => handleDelete(myClass._id)}
                   >
                     <FaTrashAlt
                       className={`text-2xl font-semibold text-white ${
