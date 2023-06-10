@@ -8,8 +8,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
-import { useContext } from "react";
-import { AuthContext } from "../../../../Providers/AuthProviders";
 
 const ManageUsers = () => {
   const [users, refetch] = useUser();

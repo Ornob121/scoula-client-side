@@ -1,7 +1,5 @@
 import useSelectClass from "../../../Hooks/useSelectClass";
 
-import { useContext } from "react";
-import { AuthContext } from "../../../Providers/AuthProviders";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -9,7 +7,6 @@ import axios from "axios";
 const SelectedClasses = () => {
   const [selectedClasses, refetch] = useSelectClass();
   console.log(selectedClasses);
-  const { user } = useContext(AuthContext);
 
   const totalPrice = selectedClasses.reduce((sum, item) => item.price + sum, 0);
   console.log(totalPrice);

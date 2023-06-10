@@ -10,6 +10,9 @@ import Dashboard from "../Layout/Dashboard";
 import SelectedClasses from "../Pages/Dashboard/SelectedClasses/SelectedClasses";
 import PrivateRoute from "./PrivateRoute";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
+import ManageTeachers from "../Pages/Dashboard/Admin/ManageTeachers/ManageTeachers";
+import AddAClass from "../Pages/Dashboard/Instructor/AddAClass/AddAClass";
+import MyClasses from "../Pages/Dashboard/Instructor/MyClasses/MyClasses";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +60,20 @@ const router = createBrowserRouter([
       {
         path: "manage-users",
         element: <ManageUsers />,
+      },
+      {
+        path: "manage-teachers",
+        element: <ManageTeachers />,
+      },
+
+      // ! Teacher routes
+      {
+        path: "add-a-class",
+        element: <AddAClass />,
+      },
+      {
+        path: "my-classes",
+        element: <MyClasses />,
       },
     ],
   },
