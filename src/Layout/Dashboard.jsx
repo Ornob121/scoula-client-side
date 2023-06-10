@@ -101,7 +101,7 @@ const Dashboard = () => {
         <hr />
         <ul className="pl-9 pt-6">{mainNav}</ul>
       </div>
-      <div className="col-span-4">
+      <div className="col-span-5">
         <Outlet />
       </div>
     </div>

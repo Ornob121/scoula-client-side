@@ -18,8 +18,8 @@ const Classes = () => {
       image: course.image,
       availableSeats: course.availableSeats,
       instructorEmail: course.instructorEmail,
-      instructorName: course.instructorImage,
-      price: course.price,
+      instructorName: course.instructorName,
+      price: course.coursePrice,
       email: user.email,
     };
     fetch("http://localhost:5000/selectedClasses", {

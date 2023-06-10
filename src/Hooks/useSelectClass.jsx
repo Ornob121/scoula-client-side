@@ -9,9 +9,14 @@ const useSelectClass = () => {
   const [axiosSecure] = useAxiosSecure();
 
   //   const [axiosSecure] = useAxiosSecure();
-  const { data: selectedClasses = [], refetch } = useQuery({
+  const {
+    data: selectedClasses = [],
+    refetch,
+    isLoading: isSelectedClassesLoading,
+  } = useQuery({
     queryKey: ["selectedClasses", user?.email],
-    enabled: !!user?.email && !!localStorage.getItem("access-token"),
+    enabled:
+      !loading && !!user?.email && !!localStorage.getItem("access-token"),
     queryFn: async () => {
       const response = await axiosSecure(
         `/selectedClasses?email=${user?.email}`
@@ -19,7 +24,7 @@ const useSelectClass = () => {
       return response.data;
     },
   });
-  return [selectedClasses, refetch];
+  return [selectedClasses, refetch, isSelectedClassesLoading];
 };
 
 export default useSelectClass;
