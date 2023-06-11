@@ -24,16 +24,14 @@ const Instructors = () => {
               className="bg-white p-8 pt-12  shadow-xl relative rounded-lg w-96 h-96 mx-auto text-center"
             >
               <img
-                src={instructors.instructorImage}
+                src={instructors.image}
                 className="h-24 w-24 mx-auto rounded-full"
                 alt=""
               />
               <h4 className="text-2xl  font-semibold py-4">
-                {instructors.instructorName}
+                {instructors.name}
               </h4>
-              <p className="text-xl font-medium">
-                Email: {instructors.instructorEmail}
-              </p>
+              <p className="text-xl font-medium">Email: {instructors.email}</p>
               <Link to={`/instructors/${instructors._id}`}>
                 <button className="absolute text-xl rounded-b-lg font-semibold bottom-0 left-0 py-4 w-full bg-yellow-500">
                   Details

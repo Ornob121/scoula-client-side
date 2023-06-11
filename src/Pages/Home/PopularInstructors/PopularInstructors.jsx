@@ -29,12 +29,12 @@ const PopularInstructors = () => {
               className="bg-white relative p-8 shadow-xl rounded-lg w-80 h-80 mx-auto text-center"
             >
               <img
-                src={instructors.instructorImage}
+                src={instructors.image}
                 className="h-24 w-24 mx-auto rounded-full"
                 alt=""
               />
               <h4 className="text-2xl  font-semibold py-4">
-                {instructors.instructorName}
+                {instructors.name}
               </h4>
 
               <Link to={`/instructors/${instructors._id}`}>

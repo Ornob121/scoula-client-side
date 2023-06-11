@@ -23,15 +23,15 @@ const InstructorsDetails = () => {
     <div className="px-20 py-20">
       <div className="grid grid-cols-2 gap-10">
         <img
-          src={instructor.instructorImage}
+          src={instructor.image}
           className="w-[600px] h-[500px]  rounded-lg"
           alt=""
         />
         <div>
           <h2 className="text-4xl font-semibold text-yellow-500">
-            {instructor.instructorName}
+            {instructor.name}
           </h2>
-          <p className="text-xl py-2">{instructor.instructorEmail}</p>
+          <p className="text-xl py-2">{instructor.email}</p>
           <p className="text-2xl pt-4 font-semibold">
             Total Classes: {classList.length}
           </p>
