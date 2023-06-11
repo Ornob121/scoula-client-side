@@ -1,11 +1,69 @@
+import Swal from "sweetalert2";
 import useAllCourses from "../../../../Hooks/useAllCourses";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
 const ManageClasses = () => {
-  const [allCourses] = useAllCourses();
+  const [allCourses, refetch] = useAllCourses();
+  const [axiosSecure] = useAxiosSecure();
+
+  // ! Approve Class function
+  const handleApproveClass = (id) => {
+    Swal.fire({
+      title: "Are you sure you want to approve this class?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, I am sure!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .patch(`/courses/admin/${id}`)
+          .then((data) => {
+            refetch();
+            if (data.data.modifiedCount) {
+              Swal.fire(
+                "Approved!",
+                "This class has been approved.",
+                "success"
+              );
+            }
+          })
+          .catch((error) => console.log(error));
+      }
+    });
+  };
+
+  // ! Deny Class Function
+  const handleDenyClass = (id) => {
+    console.log(id);
+    Swal.fire({
+      title: "Are you sure you want to deny this class?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, I am sure!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .patch(`/courses/admin/deny/${id}`)
+          .then((data) => {
+            refetch();
+            if (data.data.modifiedCount) {
+              Swal.fire("Approved!", "This class has been denied.", "success");
+            }
+          })
+          .catch((error) => console.log(error));
+      }
+    });
+  };
 
   return (
     <div className="px-20 py-12 bg-gray-50">
-      <h2 className="uppercase font-semibold text-3xl text-yellow-400">
+      <h2 className="uppercase font-semibold text-3xl text-center text-yellow-400">
         All The Classes are here
       </h2>
       <div className=" grid grid-cols-3 gap-10 pt-16">
@@ -32,7 +90,7 @@ const ManageClasses = () => {
                 </div>
                 <div className="text-xl py-4 text-start flex gap-2">
                   Status:{" "}
-                  <p className="font-bold">
+                  <pre className="font-bold">
                     {(course.status === "pending" && (
                       <p className="text-blue-400">Pending</p>
                     )) ||
@@ -42,11 +100,12 @@ const ManageClasses = () => {
                       (course.status === "denied" && (
                         <p className="text-red-500">Denied</p>
                       ))}
-                  </p>
+                  </pre>
                 </div>
                 <div className="flex justify-between">
                   <button
-                    className={`bg-green-500 font-bold hover:bg-black text-white py-2 px-6 rounded-sm ${
+                    onClick={() => handleApproveClass(course._id)}
+                    className={`bg-green-500 font-bold hover:bg-black hover:text-white py-2 px-6 rounded-sm ${
                       course.status === "approved" || course.status === "denied"
                         ? "btn-disabled"
                         : ""
@@ -55,7 +114,8 @@ const ManageClasses = () => {
                     Approve
                   </button>
                   <button
-                    className={`bg-red-500 hover:bg-black text-white font-bold py-2 px-6 rounded-sm ${
+                    onClick={() => handleDenyClass(course._id)}
+                    className={`bg-red-500 hover:bg-black hover:text-white font-bold py-2 px-6 rounded-sm ${
                       course.status === "denied" || course.status === "approved"
                         ? "btn-disabled"
                         : ""
@@ -65,9 +125,27 @@ const ManageClasses = () => {
                   </button>
                 </div>
               </div>
-              <button className="absolute text-xl rounded-b-lg font-semibold bottom-0 left-0 py-4 w-full bg-yellow-500 hover:text-white hover:bg-black">
-                Feedback
+              <button
+                className={`absolute text-xl rounded-b-lg font-semibold bottom-0 left-0 py-4 w-full bg-yellow-500 hover:text-white hover:bg-black `}
+                onClick={() => window.my_modal.showModal()}
+              >
+                Send Feedback
               </button>
+              <dialog
+                id="my_modal"
+                className="modal modal-bottom sm:modal-middle"
+              >
+                <form method="dialog" className="modal-box">
+                  <h3 className="font-bold text-lg">Hello!</h3>
+                  <p className="py-4">
+                    Press ESC key or click the button below to close
+                  </p>
+                  <div className="modal-action">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn">Close</button>
+                  </div>
+                </form>
+              </dialog>
             </div>
           );
         })}

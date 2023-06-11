@@ -75,11 +75,12 @@ const MyClasses = () => {
                 </td>
                 <td>
                   <p className="uppercase">{myClass.status}</p>
-                  {myClass.status === "denied" && (
-                    <button className="bg-black text-white mt-2 py-2 px-3 rounded-md font-semibold">
-                      Feedback
-                    </button>
-                  )}
+                  {myClass.status === "denied" ||
+                    (myClass.status === "approved" && (
+                      <button className="bg-black text-white mt-2 py-2 px-3 rounded-md font-semibold">
+                        Feedback
+                      </button>
+                    ))}
                 </td>
                 <th>
                   <button
