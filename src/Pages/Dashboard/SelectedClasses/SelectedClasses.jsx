@@ -3,13 +3,14 @@ import useSelectClass from "../../../Hooks/useSelectClass";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SelectedClasses = () => {
   const [selectedClasses, refetch] = useSelectClass();
-  console.log(selectedClasses);
+
+  const navigate = useNavigate();
 
   const totalPrice = selectedClasses.reduce((sum, item) => item.price + sum, 0);
-  console.log(totalPrice);
 
   const handleDelete = (id) => {
     console.log(id);
@@ -43,7 +44,14 @@ const SelectedClasses = () => {
           Total Selected: {selectedClasses.length}
         </h3>
         <h4 className="text-4xl font-semibold">Total Price: ${totalPrice}</h4>
-        <button className="btn btn-xs btn-warning">pay</button>
+        <button
+          className={`btn btn-xs btn-warning ${
+            selectedClasses.length < 2 && "btn-disabled"
+          }`}
+          onClick={() => navigate(`/dashboard/payment`)}
+        >
+          pay all
+        </button>
       </div>
       <div className="mx-auto w-4/5">
         <table className="table mx-auto">

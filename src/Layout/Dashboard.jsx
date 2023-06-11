@@ -17,10 +17,8 @@ import {
   FaWallet,
 } from "react-icons/fa";
 const Dashboard = () => {
-  const handleMakeTeacher = () => {};
-
-  const isAdmin = true;
-  const isTeacher = true;
+  const isAdmin = false;
+  const isTeacher = false;
 
   // ! This is the student navigation bar
   const studentNav = (
@@ -61,12 +59,12 @@ const Dashboard = () => {
           <FaWallet className="text-2xl" /> <span>Payment History</span>
         </NavLink>
       </li>
-      <button
+      {/* <button
         className="text-lg text-blue-400 pr-5 py-5"
         onClick={handleMakeTeacher}
       >
         Are You A Teacher? Be A Teacher
-      </button>
+      </button> */}
     </>
   );
 
