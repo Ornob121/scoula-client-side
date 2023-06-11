@@ -1,10 +1,12 @@
 import Swal from "sweetalert2";
 import useAllCourses from "../../../../Hooks/useAllCourses";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import { useState } from "react";
 
 const ManageClasses = () => {
   const [allCourses, refetch] = useAllCourses();
   const [axiosSecure] = useAxiosSecure();
+  const [id, setId] = useState("");
 
   // ! Approve Class function
   const handleApproveClass = (id) => {
@@ -19,7 +21,7 @@ const ManageClasses = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-          .patch(`/courses/admin/${id}`)
+          .patch(`/courses/admin/approve/${id}`)
           .then((data) => {
             refetch();
             if (data.data.modifiedCount) {
@@ -37,7 +39,6 @@ const ManageClasses = () => {
 
   // ! Deny Class Function
   const handleDenyClass = (id) => {
-    console.log(id);
     Swal.fire({
       title: "Are you sure you want to deny this class?",
       text: "You won't be able to revert this!",
@@ -61,11 +62,26 @@ const ManageClasses = () => {
     });
   };
 
+  const handleFeedback = (event) => {
+    event.preventDefault();
+    const feedback = event.target.feedback.value;
+    axiosSecure
+      .put(`/courses/admin/feedback/${id}`, { feedback })
+      .then((data) => {
+        refetch();
+        if (data.data.modifiedCount) {
+          Swal.fire("Done!", "The feedback has been sent.", "success");
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div className="px-20 py-12 bg-gray-50">
       <h2 className="uppercase font-semibold text-3xl text-center text-yellow-400">
         All The Classes are here
       </h2>
+
       <div className=" grid grid-cols-3 gap-10 pt-16">
         {allCourses.map((course) => {
           return (
@@ -86,7 +102,7 @@ const ManageClasses = () => {
                 </p>
                 <div className="flex justify-between">
                   <p>Course Price: ${course.coursePrice}</p>
-                  <p>Available Seats: ${course.availableSeats}</p>
+                  <p>Available Seats: {course.availableSeats}</p>
                 </div>
                 <div className="text-xl py-4 text-start flex gap-2">
                   Status:{" "}
@@ -127,29 +143,42 @@ const ManageClasses = () => {
               </div>
               <button
                 className={`absolute text-xl rounded-b-lg font-semibold bottom-0 left-0 py-4 w-full bg-yellow-500 hover:text-white hover:bg-black `}
-                onClick={() => window.my_modal.showModal()}
+                onClick={() => {
+                  setId(course._id);
+                  window.my_modal.showModal();
+                }}
               >
                 Send Feedback
               </button>
-              <dialog
-                id="my_modal"
-                className="modal modal-bottom sm:modal-middle"
-              >
-                <form method="dialog" className="modal-box">
-                  <h3 className="font-bold text-lg">Hello!</h3>
-                  <p className="py-4">
-                    Press ESC key or click the button below to close
-                  </p>
-                  <div className="modal-action">
-                    {/* if there is a button in form, it will close the modal */}
-                    <button className="btn">Close</button>
-                  </div>
-                </form>
-              </dialog>
             </div>
           );
         })}
       </div>
+      <dialog
+        id="my_modal"
+        className="modal modal-bottom absolute sm:modal-middle"
+      >
+        <div className="modal-box">
+          <form method="dialog">
+            <div className="modal-action mt-0">
+              <button className="btn btn-error mb-4">X</button>
+            </div>
+          </form>
+          <div>
+            <form onSubmit={handleFeedback}>
+              <textarea
+                className="textarea textarea-info w-full h-28"
+                placeholder="Feedback"
+                name="feedback"
+                required
+              ></textarea>
+              <button type="submit" className="btn btn-info mt-7">
+                Send
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 };

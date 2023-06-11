@@ -1,11 +1,15 @@
-import { FaTrashAlt } from "react-icons/fa";
+import { FaScrewdriver, FaTrashAlt } from "react-icons/fa";
 import useMyClasses from "../../../../Hooks/useMyClasses";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const MyClasses = () => {
   const [myClasses, refetch] = useMyClasses();
   //   console.log(myClasses);
+  const [feedback, setFeedback] = useState("");
+  const navigate = useNavigate();
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -46,6 +50,7 @@ const MyClasses = () => {
               <th>Class Image</th>
               <th className="text-xs">Total Enrolled Students</th>
               <th>Status</th>
+              <th>Update</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -75,28 +80,59 @@ const MyClasses = () => {
                 </td>
                 <td>
                   <p className="uppercase">{myClass.status}</p>
-                  {myClass.status === "denied" ||
-                    (myClass.status === "approved" && (
-                      <button className="bg-black text-white mt-2 py-2 px-3 rounded-md font-semibold">
-                        Feedback
-                      </button>
-                    ))}
+                  {myClass.feedback && (
+                    <button
+                      onClick={() => {
+                        setFeedback(myClass?.feedback);
+                        console.log(myClass.feedback);
+                        window.my_modal.showModal();
+                      }}
+                      className="bg-black text-white mt-2 py-2 px-3 rounded-md font-semibold"
+                    >
+                      Feedback
+                    </button>
+                  )}
                 </td>
-                <th>
+                <td>
                   <button
-                    className="btn bg-red-500"
+                    className={`btn bg-blue-500 `}
+                    onClick={() =>
+                      navigate(`/dashboard/my-classes/${myClass._id}`)
+                    }
+                  >
+                    <FaScrewdriver
+                      className={`text-2xl font-semibold text-white`}
+                    />
+                  </button>
+                </td>
+                <td>
+                  <button
+                    className={`btn bg-red-500  ${
+                      myClass.status === "approved" && "btn-disabled"
+                    }`}
                     onClick={() => handleDelete(myClass._id)}
                   >
                     <FaTrashAlt
-                      className={`text-2xl font-semibold text-white ${
-                        myClass.status === "approved" && "disabled"
-                      }`}
+                      className={`text-2xl font-semibold text-white`}
                     />
                   </button>
-                </th>
+                </td>
               </tr>
             ))}
           </tbody>
+          {/* You can open the modal using ID.showModal() method */}
+          <dialog id="my_modal" className="modal">
+            <form method="dialog" className="modal-box">
+              <button
+                htmlFor="my-modal-3"
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              >
+                ✕
+              </button>
+              <h3>Feedback From Admin</h3>
+              <p className="text-xl font-medium">{feedback}</p>
+            </form>
+          </dialog>
         </table>
       </div>
     </div>

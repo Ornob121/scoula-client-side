@@ -20,7 +20,7 @@ const Dashboard = () => {
   const handleMakeTeacher = () => {};
 
   const isAdmin = true;
-  const isTeacher = false;
+  const isTeacher = true;
 
   // ! This is the student navigation bar
   const studentNav = (
