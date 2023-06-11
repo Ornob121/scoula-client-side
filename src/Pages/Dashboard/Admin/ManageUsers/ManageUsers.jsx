@@ -12,6 +12,8 @@ import Swal from "sweetalert2";
 const ManageUsers = () => {
   const [users, refetch] = useUser();
   const [axiosSecure] = useAxiosSecure();
+
+  // ! Admin making
   const handleMakeAdmin = (user) => {
     Swal.fire({
       title: `Are you sure you want to make ${user.name} admin?`,
@@ -41,7 +43,68 @@ const ManageUsers = () => {
       }
     });
   };
-  console.log(users);
+
+  // ! Teacher making
+  const handleMakeTeacher = (user) => {
+    Swal.fire({
+      title: `Are you sure you want to make ${user.name} teacher?`,
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, I am sure",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .patch(`/users/admin/instructor/${user._id}`)
+          .then((data) => {
+            if (data.data.modifiedCount) {
+              refetch();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `${user.name} is a Teacher Now!`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+          .catch((error) => console.log(error));
+      }
+    });
+  };
+
+  // ! Delete user
+  const handleDeleteUser = (user) => {
+    Swal.fire({
+      title: `Are you sure you want to delete ${user.name} user?`,
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, I am sure",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure
+          .delete(`/users/admin/delete/${user._id}`)
+          .then((data) => {
+            if (data.data.deletedCount) {
+              refetch();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `${user.name} is deleted!`,
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          })
+          .catch((error) => console.log(error));
+      }
+    });
+  };
   return (
     <div className="py-20">
       <h3 className="text-4xl font-semibold text-center">
@@ -56,6 +119,8 @@ const ManageUsers = () => {
               <th>Name</th>
               <th>Profile</th>
               <th>Role</th>
+              <th>Make Admin</th>
+              <th>Make Teacher</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -79,10 +144,7 @@ const ManageUsers = () => {
                   />
                 </td>
                 <td>
-                  <button
-                    onClick={() => handleMakeAdmin(user)}
-                    className="font-bold text-2xl"
-                  >
+                  <button className="font-bold text-2xl">
                     {(user?.role === "admin" && (
                       <FontAwesomeIcon
                         title="Admin"
@@ -105,14 +167,37 @@ const ManageUsers = () => {
                       )}
                   </button>
                 </td>
-                <th>
+                <td>
+                  <button
+                    onClick={() => handleMakeAdmin(user)}
+                    className={`btn bg-blue-500 ${
+                      user.role === "admin" && "btn-disabled"
+                    }`}
+                    // onClick={() => handleDelete(selected._id)}
+                  >
+                    Make Admin
+                  </button>
+                </td>
+                <td>
+                  <button
+                    onClick={() => handleMakeTeacher(user)}
+                    className={`btn bg-red-500 ${
+                      user.role === "teacher" && "btn-disabled"
+                    }`}
+                    // onClick={() => handleDelete(selected._id)}
+                  >
+                    Make Teacher
+                  </button>
+                </td>
+                <td>
                   <button
                     className="btn bg-red-500"
+                    onClick={() => handleDeleteUser(user)}
                     // onClick={() => handleDelete(selected._id)}
                   >
                     <FaTrashAlt className="text-2xl font-semibold text-white" />
                   </button>
-                </th>
+                </td>
               </tr>
             ))}
           </tbody>
