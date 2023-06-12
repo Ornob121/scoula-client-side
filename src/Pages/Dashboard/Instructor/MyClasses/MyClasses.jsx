@@ -121,19 +121,19 @@ const MyClasses = () => {
             ))}
           </tbody>
           {/* You can open the modal using ID.showModal() method */}
-          <dialog id="my_modal" className="modal">
-            <form method="dialog" className="modal-box">
-              <button
-                htmlFor="my-modal-3"
-                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-              >
-                ✕
-              </button>
-              <h3>Feedback From Admin</h3>
-              <p className="text-xl font-medium">{feedback}</p>
-            </form>
-          </dialog>
         </table>
+        <dialog id="my_modal" className="modal">
+          <form method="dialog" className="modal-box">
+            <button
+              htmlFor="my-modal-3"
+              className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            >
+              ✕
+            </button>
+            <h3>Feedback From Admin</h3>
+            <p className="text-xl font-medium">{feedback}</p>
+          </form>
+        </dialog>
       </div>
     </div>
   );

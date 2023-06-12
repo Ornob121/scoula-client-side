@@ -20,6 +20,7 @@ import EnrolledClasses from "../Pages/Dashboard/EnrolledClasses/EnrolledClasses"
 import SinglePayment from "../Pages/Dashboard/Payment/SinglePayment";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 import AdminRoute from "./AdminRoute";
+import TeacherRoute from "./TeacherRoute";
 
 const router = createBrowserRouter([
   {
@@ -101,15 +102,27 @@ const router = createBrowserRouter([
       // ! Teacher routes
       {
         path: "add-a-class",
-        element: <AddAClass />,
+        element: (
+          <TeacherRoute>
+            <AddAClass />
+          </TeacherRoute>
+        ),
       },
       {
         path: "my-classes",
-        element: <MyClasses />,
+        element: (
+          <TeacherRoute>
+            <MyClasses />
+          </TeacherRoute>
+        ),
       },
       {
         path: "my-classes/:id",
-        element: <UpdateClass />,
+        element: (
+          <TeacherRoute>
+            <UpdateClass />
+          </TeacherRoute>
+        ),
       },
     ],
   },

@@ -16,10 +16,12 @@ import {
   FaWallet,
 } from "react-icons/fa";
 import useIsAdmin from "../Hooks/useIsAdmin";
+import useIsTeacher from "../Hooks/useIsTeacher";
 const Dashboard = () => {
   const [isUserAdmin] = useIsAdmin();
+  const [isUserTeacher] = useIsTeacher();
   const isAdmin = isUserAdmin?.admin;
-  const isTeacher = false;
+  const isTeacher = isUserTeacher?.teacher;
 
   // ! This is the student navigation bar
   const studentNav = (

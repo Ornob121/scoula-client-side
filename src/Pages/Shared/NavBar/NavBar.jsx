@@ -3,11 +3,14 @@ import logo from "../../../assets/images/logo.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../../Providers/AuthProviders";
 import useIsAdmin from "../../../Hooks/useIsAdmin";
+import useIsTeacher from "../../../Hooks/useIsTeacher";
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
   const [isUserAdmin] = useIsAdmin();
+  const [isUserTeacher] = useIsTeacher();
   const isAdmin = isUserAdmin?.admin;
+  const isTeacher = isUserTeacher?.teacher;
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -46,7 +49,7 @@ const NavBar = () => {
         </NavLink>
       </li>
       {user &&
-        (isAdmin || (
+        (isAdmin || isTeacher || (
           <li className="text-xl">
             <NavLink
               className={({ isActive }) =>
@@ -65,6 +68,18 @@ const NavBar = () => {
               isActive ? "text-blue-500 border-b-2 border-blue-500" : ""
             }
             to="/dashboard/manage-users"
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
+      {isTeacher && (
+        <li className="text-xl">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "text-blue-500 border-b-2 border-blue-500" : ""
+            }
+            to="/dashboard/my-classes"
           >
             Dashboard
           </NavLink>
