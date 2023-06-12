@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import "./CheckOutForm.css";
 
 const CheckOutForm = ({ price, classes }) => {
+  const { webMode } = useContext(AuthContext);
   // console.log(classes);
   const stripe = useStripe();
   const [axiosSecure] = useAxiosSecure();
@@ -100,11 +101,15 @@ const CheckOutForm = ({ price, classes }) => {
     <>
       <form onSubmit={handleSubmit}>
         <CardElement
+          className={`${
+            webMode === "dark"
+              ? "bg-slate-600 py-2 text-white"
+              : "bg-white text-[#424770]"
+          }`}
           options={{
             style: {
               base: {
                 fontSize: "16px",
-                color: "#424770",
                 "::placeholder": {
                   color: "#aab7c4",
                 },

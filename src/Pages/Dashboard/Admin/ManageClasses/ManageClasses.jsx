@@ -1,7 +1,8 @@
 import Swal from "sweetalert2";
 import useAllCourses from "../../../../Hooks/useAllCourses";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../../Providers/AuthProviders";
 
 const ManageClasses = () => {
   const [allCourses, refetch] = useAllCourses();
@@ -76,8 +77,14 @@ const ManageClasses = () => {
       .catch((error) => console.log(error));
   };
 
+  const { webMode } = useContext(AuthContext);
+
   return (
-    <div className="px-20 py-12 bg-gray-50">
+    <div
+      className={`px-20 py-12   ${
+        webMode === "dark" ? " bg-black " : "bg-gray-50"
+      }`}
+    >
       <h2 className="uppercase font-semibold text-3xl text-center text-yellow-400">
         All The Classes are here
       </h2>
@@ -87,7 +94,9 @@ const ManageClasses = () => {
           return (
             <div
               key={course._id}
-              className="bg-white  shadow-xl relative rounded-lg w-[350px] h-[590px] mx-auto text-center"
+              className={` shadow-xl relative rounded-lg w-[350px] h-[590px] mx-auto text-center  ${
+                webMode === "dark" ? " bg-black " : "bg-white"
+              }`}
             >
               <img src={course.image} className="w-full h-52" alt="" />
               <h4 className="text-2xl font-semibold py-3 text-center">
@@ -125,7 +134,7 @@ const ManageClasses = () => {
                       course.status === "approved" || course.status === "denied"
                         ? "btn-disabled"
                         : ""
-                    }`}
+                    }  ${webMode === "dark" ? " text-black " : ""}`}
                   >
                     Approve
                   </button>
@@ -135,7 +144,7 @@ const ManageClasses = () => {
                       course.status === "denied" || course.status === "approved"
                         ? "btn-disabled"
                         : ""
-                    } `}
+                    }  ${webMode === "dark" ? " text-black " : ""}`}
                   >
                     Deny
                   </button>

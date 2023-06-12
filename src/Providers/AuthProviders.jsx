@@ -19,6 +19,24 @@ const AuthProviders = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const [webMode, setWebMode] = useState(localStorage.getItem("web-mode"));
+  const lightMode = () => {
+    localStorage.setItem("web-mode", "light");
+    setWebMode("light");
+  };
+  const darkMode = () => {
+    localStorage.setItem("web-mode", "dark");
+    setWebMode("dark");
+  };
+
+  if (webMode === "light") {
+    document.querySelector("body").setAttribute("data-theme", webMode);
+  }
+
+  if (webMode === "dark") {
+    document.querySelector("body").setAttribute("data-theme", webMode);
+  }
+
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
@@ -70,6 +88,9 @@ const AuthProviders = ({ children }) => {
     googleSignIn,
     logOut,
     loading,
+    webMode,
+    lightMode,
+    darkMode,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

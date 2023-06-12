@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import bg from "../../../assets/images/footer/insructorBG.png";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../Providers/AuthProviders";
 
 const PopularInstructors = () => {
+  const { webMode } = useContext(AuthContext);
   const [popularInstructors, setPopularInstructors] = useState([]);
   useEffect(() => {
     fetch("http://localhost:5000/popularInstructors")
@@ -11,14 +12,11 @@ const PopularInstructors = () => {
   }, []);
   return (
     <div
-      className="md:px-20 px-5 py-6 pb-8 md:pt-12 md:pb-10"
-      style={{
-        background: `url(${bg})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-      }}
+      className={`md:px-20 px-5 py-6 pb-8 md:pt-12 md:pb-10 ${
+        webMode === "dark" ? "bg-[#36454F]" : "background-for-instructors-bg"
+      }`}
     >
-      <h2 className="md:text-3xl text-2xl text-center pb-5 font-medium">
+      <h2 className="md:text-3xl text-2xl text-center pb-12 font-medium">
         Here Are Some Of Our Popular Instructors
       </h2>
       <div className=" grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -26,7 +24,11 @@ const PopularInstructors = () => {
           return (
             <div
               key={instructors._id}
-              className="bg-white relative p-8 shadow-xl rounded-lg w-80 h-80 mx-auto text-center"
+              className={` relative p-8 shadow-xl rounded-lg w-80 h-80 mx-auto text-center ${
+                webMode === "dark"
+                  ? "bg-black border border-gray-50"
+                  : "bg-white"
+              }`}
             >
               <img
                 src={instructors.image}

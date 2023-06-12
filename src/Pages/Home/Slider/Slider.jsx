@@ -5,12 +5,23 @@ import banner1 from "../../../assets/images/footer/banner2.svg";
 import banner2 from "../../../assets/images/footer/banner4.jpg";
 import banner3 from "../../../assets/images/footer/teacherImg.jpg";
 import banner5 from "../../../assets/images/footer/banner5.jpg";
+import { useContext } from "react";
+import { AuthContext } from "../../../Providers/AuthProviders";
 
 const Slider = () => {
+  const { webMode } = useContext(AuthContext);
   return (
-    <section className="md:mt-10 md:mb-20">
+    <section
+      className={`md:pt-10 md:pb-20  ${
+        webMode === "dark" ? "bg-[#36454F]" : "bg-white"
+      }`}
+    >
       <Carousel showArrows={true}>
-        <div className="md:h-[500px] h-[400px]  grid grid-cols-2 items-center bg-[bisque] px-8 md:px-20">
+        <div
+          className={`md:h-[500px] h-[400px] grid grid-cols-2 items-center px-8 md:px-20 ${
+            webMode === "dark" ? "bg-[#36454F]" : "bg-[bisque]"
+          }`}
+        >
           <div>
             <h3 className="capitalize text-xl md:text-5xl font-bold">
               Achieve The best result with Scuola
@@ -29,7 +40,7 @@ const Slider = () => {
               </button>
             </div>
           </div>
-          <img className="h-[400px] w-auto" src={banner1} />
+          <img className="h-[400px] bg-[bisque] w-auto" src={banner1} />
         </div>
         <div className="md:h-[500px] grid grid-cols-2 items-center px-8 md:px-20">
           <img className="h-[400px] w-auto" src={banner2} />
@@ -53,7 +64,11 @@ const Slider = () => {
             </div>
           </div>
         </div>
-        <div className="md:h-[500px] grid grid-cols-2 items-center bg-gray-300 px-8 md:px-20">
+        <div
+          className={`md:h-[500px] grid grid-cols-2 items-center px-8 md:px-20 ${
+            webMode === "dark" ? "bg-[#36454F]" : "bg-gray-300"
+          }`}
+        >
           <div>
             <h3 className="capitalize text-xl md:text-5xl font-bold">
               Learn from the best in the world
@@ -75,7 +90,11 @@ const Slider = () => {
           </div>
           <img className="h-[300px] w-[200px]" src={banner3} />
         </div>
-        <div className="md:h-[500px] grid grid-cols-2 items-center bg-blue-300 px-8 md:px-20">
+        <div
+          className={`md:h-[500px] grid grid-cols-2 items-center px-8 md:px-20 ${
+            webMode === "dark" ? "bg-[#36454F]" : "bg-blue-300"
+          }`}
+        >
           <img className="h-[300px] w-[200px]" src={banner5} />
           <div>
             <h3 className="capitalize text-xl md:text-5xl font-bold">

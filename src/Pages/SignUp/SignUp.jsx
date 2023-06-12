@@ -84,9 +84,9 @@ const SignUp = () => {
       });
   };
   console.log(errors);
-
+  const { webMode } = useContext(AuthContext);
   return (
-    <div className="my-20 px-10 md:px-20 shadow-2xl md:w-2/3 w-5/6 mx-auto  pb-28">
+    <div className="py-20 px-10 md:px-20 shadow-2xl md:w-2/3 w-5/6 mx-auto  pb-28">
       <h2 className="text-center font-bold text-4xl pb-4 pt-12">
         Login to <span className="text-yellow-400">Scuola</span>
       </h2>
@@ -105,7 +105,9 @@ const SignUp = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="py-4">
             <label
-              className="relative font-medium left-20 bg-white text-xl top-3"
+              className={`relative font-medium left-20  ${
+                webMode === "dark" ? "bg-black" : "bg-white"
+              } text-xl top-3`}
               htmlFor=""
             >
               Name
@@ -124,7 +126,9 @@ const SignUp = () => {
           </div>
           <div className="pb-4">
             <label
-              className="relative font-medium left-20 bg-white text-xl top-3"
+              className={`relative font-medium left-20  ${
+                webMode === "dark" ? "bg-black" : "bg-white"
+              } text-xl top-3`}
               htmlFor=""
             >
               Email
@@ -138,7 +142,9 @@ const SignUp = () => {
           </div>
           <div className="">
             <label
-              className="relative font-medium left-20 bg-white text-xl top-3"
+              className={`relative font-medium left-20  ${
+                webMode === "dark" ? "bg-black" : "bg-white"
+              } text-xl top-3`}
               htmlFor=""
             >
               Password
@@ -181,7 +187,9 @@ const SignUp = () => {
           </div>
           <div className="">
             <label
-              className="relative font-medium left-20 bg-white text-xl top-3"
+              className={`relative font-medium left-20  ${
+                webMode === "dark" ? "bg-black" : "bg-white"
+              } text-xl top-3`}
               htmlFor=""
             >
               Confirm Password
@@ -208,7 +216,9 @@ const SignUp = () => {
           </div>
           <div className="pb-6">
             <label
-              className=" font-medium relative top-3 left-40 bg-white text-xl "
+              className={`relative font-medium left-40  ${
+                webMode === "dark" ? "bg-black" : "bg-white"
+              } text-xl top-3`}
               htmlFor=""
             >
               Profile Image

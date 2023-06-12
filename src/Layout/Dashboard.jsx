@@ -17,6 +17,8 @@ import {
 } from "react-icons/fa";
 import useIsAdmin from "../Hooks/useIsAdmin";
 import useIsTeacher from "../Hooks/useIsTeacher";
+import { useContext } from "react";
+import { AuthContext } from "../Providers/AuthProviders";
 const Dashboard = () => {
   const [isUserAdmin] = useIsAdmin();
   const [isUserTeacher] = useIsTeacher();
@@ -31,7 +33,7 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive
               ? "text-blue-500 flex gap-2 items-center"
-              : "text-black flex gap-2 items-center"
+              : " flex gap-2 items-center"
           }
           to="/dashboard/selected-classes"
         >
@@ -43,7 +45,7 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive
               ? "text-blue-500 flex gap-2 items-center"
-              : "text-black flex gap-2 items-center"
+              : " flex gap-2 items-center"
           }
           to="/dashboard/enrolled-classes"
         >
@@ -55,7 +57,7 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive
               ? "text-blue-500 flex gap-2 items-center"
-              : "text-black flex gap-2 items-center"
+              : " flex gap-2 items-center"
           }
           to="/dashboard/payment-history"
         >
@@ -74,7 +76,7 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive
               ? "text-blue-500 flex gap-3 items-center"
-              : "text-black flex gap-3 items-center"
+              : " flex gap-3 items-center"
           }
           to="/dashboard/manage-classes"
         >
@@ -87,7 +89,7 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive
               ? "text-blue-500 flex gap-3 items-center"
-              : "text-black flex gap-3 items-center"
+              : " flex gap-3 items-center"
           }
           to="/dashboard/manage-users"
         >
@@ -106,7 +108,7 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive
               ? "text-blue-500 flex gap-3 items-center"
-              : "text-black flex gap-3 items-center"
+              : " flex gap-3 items-center"
           }
           to="/dashboard/add-a-class"
         >
@@ -119,7 +121,7 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive
               ? "text-blue-500 flex gap-3 items-center"
-              : "text-black flex gap-3 items-center"
+              : " flex gap-3 items-center"
           }
           to="/dashboard/my-classes"
         >
@@ -138,7 +140,7 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive
               ? "text-blue-500 flex gap-2 items-center "
-              : "text-black flex gap-2 items-center"
+              : " flex gap-2 items-center"
           }
           to="/"
         >
@@ -150,7 +152,7 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive
               ? "text-blue-500 flex gap-2 items-center "
-              : "text-black flex gap-2 items-center"
+              : "flex gap-2 items-center"
           }
           to="/instructors"
         >
@@ -162,7 +164,7 @@ const Dashboard = () => {
           className={({ isActive }) =>
             isActive
               ? "text-blue-500 flex gap-2 items-center "
-              : "text-black flex gap-2 items-center"
+              : " flex gap-2 items-center"
           }
           to="/classes"
         >
@@ -172,9 +174,15 @@ const Dashboard = () => {
     </>
   );
 
+  const { webMode } = useContext(AuthContext);
+
   return (
     <div className="grid md:grid-cols-6">
-      <div className="border-r h-[100vh] border-gray-200 sticky top-0">
+      <div
+        className={`border-r h-[100vh] border-gray-200 sticky top-0  ${
+          webMode === "dark" ? " bg-black " : "bg-white"
+        }`}
+      >
         <img src={logo} alt="" className="mt-12 pl-9" />
         {isAdmin && <ul className="pl-9 pb-6">{adminNav}</ul>}
         {isTeacher && <ul className="pl-9 pb-6">{teacherNav}</ul>}

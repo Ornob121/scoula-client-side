@@ -8,8 +8,9 @@ import Swal from "sweetalert2";
 const image_api_pk = import.meta.env.VITE_API_IMG_PK;
 // console.log(image_api_pk);
 const AddAClass = () => {
-  const { user } = useContext(AuthContext);
-  console.log(user);
+  const { user, webMode } = useContext(AuthContext);
+
+  // console.log(user);
   const { register, handleSubmit, reset } = useForm();
 
   const [axiosSecure] = useAxiosSecure();
@@ -55,7 +56,9 @@ const AddAClass = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="py-6">
           <label
-            className="relative font-medium left-20 bg-white text-xl top-3"
+            className={`relative font-medium left-20  ${
+              webMode === "dark" ? "bg-black" : "bg-white"
+            } text-xl top-3`}
             htmlFor=""
           >
             Class Name
@@ -71,7 +74,9 @@ const AddAClass = () => {
         </div>
         <div className="pb-6">
           <label
-            className=" font-medium relative top-3 left-40 bg-white text-xl "
+            className={`relative font-medium left-40  ${
+              webMode === "dark" ? "bg-black" : "bg-white"
+            } text-xl top-3`}
             htmlFor=""
           >
             Class Image
@@ -86,7 +91,9 @@ const AddAClass = () => {
         <div className="grid grid-cols-2 gap-8 pb-8">
           <div>
             <label
-              className="relative font-medium left-20 bg-white text-xl top-3"
+              className={`relative font-medium left-20  ${
+                webMode === "dark" ? "bg-black" : "bg-white"
+              } text-xl top-3`}
               htmlFor=""
             >
               Instructor Name
@@ -101,7 +108,9 @@ const AddAClass = () => {
           </div>
           <div>
             <label
-              className="relative font-medium left-20 bg-white text-xl top-3"
+              className={`relative font-medium left-20  ${
+                webMode === "dark" ? "bg-black" : "bg-white"
+              } text-xl top-3`}
               htmlFor=""
             >
               Instructor Email
@@ -118,7 +127,9 @@ const AddAClass = () => {
         <div className="grid grid-cols-2 gap-8 pb-4">
           <div>
             <label
-              className="relative font-medium left-20 bg-white text-xl top-3"
+              className={`relative font-medium left-20  ${
+                webMode === "dark" ? "bg-black" : "bg-white"
+              } text-xl top-3`}
               htmlFor=""
             >
               Available Seats
@@ -132,7 +143,9 @@ const AddAClass = () => {
           </div>
           <div>
             <label
-              className="relative font-medium left-20 bg-white text-xl top-3"
+              className={`relative font-medium left-20  ${
+                webMode === "dark" ? "bg-black" : "bg-white"
+              } text-xl top-3`}
               htmlFor=""
             >
               Price

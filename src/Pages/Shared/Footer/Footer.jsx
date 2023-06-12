@@ -2,11 +2,18 @@ import logo from "../../../assets/images/logo.svg";
 import footerImage from "../../../assets/images/footer/footerImg.png";
 import { FaFacebook, FaInstagram, FaPhoneAlt, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../../Providers/AuthProviders";
 
 const Footer = () => {
+  const { webMode } = useContext(AuthContext);
   return (
-    <footer className="relative bottom-0 mb-4">
-      <hr className="border-2 my-10 text-gray-200" />
+    <footer
+      className={`relative bottom-0 pb-4 pt-10 ${
+        webMode === "dark" ? "bg-[#36454F]" : "bg-white"
+      }`}
+    >
+      <hr className="border-2 mb-10 text-gray-200" />
       <form>
         <div className="grid md:grid-cols-5 grid-cols-1 gap-5 px-10 md:px-20 md:my-16 my-8">
           <input

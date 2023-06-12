@@ -1,11 +1,18 @@
 import { useLoaderData } from "react-router-dom";
 import "./PopularClasses.css";
+import { useContext } from "react";
+import { AuthContext } from "../../../Providers/AuthProviders";
 
 const PopularClasses = () => {
+  const { webMode } = useContext(AuthContext);
   const popularClasses = useLoaderData();
   // console.log(popularClasses);
   return (
-    <div className="md:my-12 my-8 md:px-20">
+    <div
+      className={`md:py-12 py-8 md:px-20  ${
+        webMode === "dark" ? "bg-[#36454F]" : "bg-[bisque]"
+      }`}
+    >
       <h2 className="capitalize md:text-3xl text-2xl font-medium text-center">
         Here Are Our popular courses
       </h2>

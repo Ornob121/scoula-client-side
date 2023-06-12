@@ -40,8 +40,10 @@ const Login = () => {
       });
   };
 
+  const { webMode } = useContext(AuthContext);
+
   return (
-    <div className="my-20 px-5 md:px-20 shadow-2xl md:w-2/3 w-5/6 mx-auto pb-10 md:pb-28">
+    <div className="py-20 px-5 md:px-20 shadow-2xl md:w-2/3 w-5/6 mx-auto pb-10 md:pb-28">
       <h2 className="text-center font-bold text-4xl pb-4 pt-12">
         Login to <span className="text-yellow-400">Scuola</span>
       </h2>
@@ -58,7 +60,9 @@ const Login = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="py-4">
             <label
-              className="relative font-medium left-20 bg-white text-xl top-3"
+              className={`relative font-medium left-20  ${
+                webMode === "dark" ? "bg-black" : "bg-white"
+              } text-xl top-3`}
               htmlFor=""
             >
               Email
@@ -73,7 +77,9 @@ const Login = () => {
           </div>
           <div className="pb-4">
             <label
-              className="relative font-medium left-20 bg-white text-xl top-3"
+              className={`relative font-medium left-20  ${
+                webMode === "dark" ? "bg-black" : "bg-white"
+              } text-xl top-3`}
               htmlFor=""
             >
               Password

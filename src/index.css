@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.background-for-instructors-bg {
+  background: url("/src/assets/images/footer/insructorBG.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}

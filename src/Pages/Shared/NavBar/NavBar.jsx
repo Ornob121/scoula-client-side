@@ -4,9 +4,11 @@ import { useContext } from "react";
 import { AuthContext } from "../../../Providers/AuthProviders";
 import useIsAdmin from "../../../Hooks/useIsAdmin";
 import useIsTeacher from "../../../Hooks/useIsTeacher";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const NavBar = () => {
-  const { user, logOut } = useContext(AuthContext);
+  const { user, logOut, lightMode, darkMode, webMode } =
+    useContext(AuthContext);
   const [isUserAdmin] = useIsAdmin();
   const [isUserTeacher] = useIsTeacher();
   const isAdmin = isUserAdmin?.admin;
@@ -91,7 +93,7 @@ const NavBar = () => {
   const logItems = (
     <>
       {user ? (
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 mr-5">
           <img className="h-12 w-12 rounded-full" src={user.photoURL} alt="" />
           <button
             onClick={handleLogOut}
@@ -101,7 +103,7 @@ const NavBar = () => {
           </button>
         </div>
       ) : (
-        <button className="text-xl btn btn-info">
+        <button className="text-xl btn btn-info mr-5">
           <NavLink
             className={({ isActive }) =>
               isActive ? "text-blue-500 border-b-2 border-blue-500" : ""
@@ -112,11 +114,30 @@ const NavBar = () => {
           </NavLink>
         </button>
       )}
+      <button>
+        {webMode === "light" ? (
+          <FaSun
+            className="text-4xl text-yellow-400"
+            onClick={() => {
+              darkMode();
+            }}
+          />
+        ) : (
+          <FaMoon
+            className="text-4xl text-gray-300 "
+            onClick={() => {
+              lightMode();
+            }}
+          />
+        )}
+      </button>
     </>
   );
   return (
     <div
-      className={`navbar md:px-8 sticky top-0 z-10 bg-white py-5 items-center `}
+      className={`navbar md:px-8 sticky top-0 z-10  py-5 items-center ${
+        webMode === "dark" ? "bg-[#36454F]" : "bg-white"
+      }`}
     >
       <div className="navbar-start  ">
         <div className="dropdown">

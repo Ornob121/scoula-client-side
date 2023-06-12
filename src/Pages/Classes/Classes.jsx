@@ -9,6 +9,7 @@ const Classes = () => {
   const [courses, setCourses] = useState([]);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const { webMode } = useContext(AuthContext);
 
   const [isUserTeacher] = useIsTeacher();
   const isTeacher = isUserTeacher?.teacher;
@@ -54,7 +55,11 @@ const Classes = () => {
   };
 
   return (
-    <div className="py-20 px-10 md:px-20 bg-[#F3F4F7]">
+    <div
+      className={`py-20 px-10 md:px-20  ${
+        webMode === "dark" ? "bg-[#36454F]" : "bg-[#F3F4F7]"
+      } `}
+    >
       <h2 className="text-4xl font-bold text-center text-yellow-400">
         Here are all of our courses
       </h2>
@@ -64,8 +69,8 @@ const Classes = () => {
             <div
               key={course._id}
               className={` w-[400px]  ${
-                course.availableSeats === 0 ? "bg-red-500" : "bg-white"
-              }`}
+                course.availableSeats === 0 && "bg-red-500"
+              } ${webMode === "dark" ? "bg-black" : "bg-white"}`}
             >
               <img src={course.image} className="w-[400px] h-[400px]" alt="" />
               <h4 className="text-3xl pl-6 py-3 font-bold text-yellow-400">
