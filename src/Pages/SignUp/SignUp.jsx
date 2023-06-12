@@ -86,7 +86,7 @@ const SignUp = () => {
   console.log(errors);
 
   return (
-    <div className="my-20 px-20 shadow-2xl w-2/3 mx-auto  pb-28">
+    <div className="my-20 px-10 md:px-20 shadow-2xl md:w-2/3 w-5/6 mx-auto  pb-28">
       <h2 className="text-center font-bold text-4xl pb-4 pt-12">
         Login to <span className="text-yellow-400">Scuola</span>
       </h2>
@@ -101,7 +101,7 @@ const SignUp = () => {
       </Link>
 
       <p className="text-red-500">{error}</p>
-      <div className="px-32">
+      <div className="md:px-32">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="py-4">
             <label

@@ -6,7 +6,7 @@ const Instructors = () => {
 
   return (
     <div
-      className="px-20 pt-12 pb-10"
+      className="px-10 md:px-20 pt-12 pb-10"
       style={{
         background: `url(${bg})`,
         backgroundSize: "cover",
@@ -16,7 +16,7 @@ const Instructors = () => {
       <h2 className="text-3xl text-center pb-12 font-medium text-yellow-500">
         Here Are All Of Our Instructors
       </h2>
-      <div className=" grid grid-cols-3 gap-10">
+      <div className=" grid grid-cols-1 md:grid-cols-3 gap-10">
         {datas.map((instructors) => {
           return (
             <div

@@ -3,10 +3,11 @@ import useSelectClass from "../../../Hooks/useSelectClass";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SelectedClasses = () => {
   const [selectedClasses, refetch] = useSelectClass();
+  const navigate = useNavigate();
 
   const totalPrice = selectedClasses.reduce((sum, item) => item.price + sum, 0);
 
@@ -14,7 +15,7 @@ const SelectedClasses = () => {
     console.log(id);
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You this class will be removed from selected class!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -43,8 +44,9 @@ const SelectedClasses = () => {
         </h3>
         <h4 className="text-4xl font-semibold">Total Price: ${totalPrice}</h4>
         <button
+          onClick={() => navigate("/dashboard/payment")}
           className={`btn btn-xs btn-warning ${
-            selectedClasses.length < 2 && "btn-disabled"
+            selectedClasses.length < 1 && "btn-disabled"
           }`}
         >
           pay all

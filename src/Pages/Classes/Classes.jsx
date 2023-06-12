@@ -2,11 +2,20 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useIsTeacher from "../../Hooks/useIsTeacher";
+import useIsAdmin from "../../Hooks/useIsAdmin";
 
 const Classes = () => {
   const [courses, setCourses] = useState([]);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  const [isUserTeacher] = useIsTeacher();
+  const isTeacher = isUserTeacher?.teacher;
+
+  const [isUserAdmin] = useIsAdmin();
+  const isAdmin = isUserAdmin?.admin;
+
   useEffect(() => {
     fetch("http://localhost:5000/courses")
       .then((res) => res.json())
@@ -45,17 +54,17 @@ const Classes = () => {
   };
 
   return (
-    <div className="py-20 px-20 bg-[#F3F4F7]">
+    <div className="py-20 px-10 md:px-20 bg-[#F3F4F7]">
       <h2 className="text-4xl font-bold text-center text-yellow-400">
         Here are all of our courses
       </h2>
-      <div className="grid grid-cols-3 gap-8 pt-12">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-12">
         {courses.map((course) => {
           return (
             <div
               key={course._id}
-              className={` w-[400px] bg-white ${
-                course.availableSeats ? "" : "bg-red-500"
+              className={` w-[400px]  ${
+                course.availableSeats === 0 ? "bg-red-500" : "bg-white"
               }`}
             >
               <img src={course.image} className="w-[400px] h-[400px]" alt="" />
@@ -76,6 +85,8 @@ const Classes = () => {
                 disabled={!course.availableSeats}
                 className={`w-full py-4 bg-yellow-400 text-xl font-bold hover:bg-black hover:text-white mt-5 ${
                   course.availableSeats ? "" : "btn-disabled"
+                } ${isTeacher ? "btn-disabled" : ""} ${
+                  isAdmin ? "btn-disabled" : ""
                 }`}
               >
                 Book

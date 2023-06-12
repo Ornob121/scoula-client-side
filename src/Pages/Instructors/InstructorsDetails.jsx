@@ -1,8 +1,21 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../../Providers/AuthProviders";
+import Swal from "sweetalert2";
+import useIsTeacher from "../../Hooks/useIsTeacher";
+import useIsAdmin from "../../Hooks/useIsAdmin";
 
 const InstructorsDetails = () => {
   const { id } = useParams();
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const [isUserTeacher] = useIsTeacher();
+  const isTeacher = isUserTeacher?.teacher;
+
+  const [isUserAdmin] = useIsAdmin();
+  const isAdmin = isUserAdmin?.admin;
+
   //   console.log(id, "from params");
   const [instructor, setInstructor] = useState("");
   const [classList, setClassList] = useState([]);
@@ -19,9 +32,40 @@ const InstructorsDetails = () => {
       });
   }, [id]);
 
+  const handleSelectClass = (course) => {
+    console.log(course);
+    const selectedCourse = {
+      name: course.className,
+      image: course.image,
+      availableSeats: course.availableSeats,
+      instructorEmail: course.instructorEmail,
+      instructorName: course.instructorName,
+      price: course.coursePrice,
+      email: user?.email,
+      classId: course._id,
+    };
+    fetch("http://localhost:5000/selectedClasses", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(selectedCourse),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          Swal.fire({
+            icon: "success",
+            title: "Great",
+            text: "This Class is booked",
+          });
+        }
+      });
+  };
+
   return (
-    <div className="px-20 py-20">
-      <div className="grid grid-cols-2 gap-10">
+    <div className="md:px-20 px-10 py-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         <img
           src={instructor.image}
           className="w-[600px] h-[500px]  rounded-lg"
@@ -35,7 +79,11 @@ const InstructorsDetails = () => {
           <p className="text-2xl pt-4 font-semibold">
             Total Classes: {classList.length}
           </p>
-          <div className={`mt-5 ${classLength ? "grid grid-cols-2" : ""}`}>
+          <div
+            className={`mt-5 ${
+              classLength ? "md:grid grid-cols-2" : ""
+            } grid grid-cols-1 gap-7`}
+          >
             {classList.map((classes) => {
               return (
                 <div
@@ -53,6 +101,19 @@ const InstructorsDetails = () => {
                     <p className="text-xl font-medium">
                       Price: ${classes.coursePrice}
                     </p>
+                    <button
+                      onClick={() => {
+                        user ? handleSelectClass(classes) : navigate("/login");
+                      }}
+                      disabled={!classes.availableSeats}
+                      className={`w-full py-4 bg-yellow-400 text-xl font-bold hover:bg-black hover:text-white mt-5 ${
+                        classes.availableSeats ? "" : "btn-disabled"
+                      } ${isTeacher ? "btn-disabled" : ""} ${
+                        isAdmin ? "btn-disabled" : ""
+                      }`}
+                    >
+                      Book
+                    </button>
                   </div>
                 </div>
               );

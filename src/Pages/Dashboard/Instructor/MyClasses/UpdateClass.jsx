@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../../Providers/AuthProviders";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
@@ -10,6 +10,8 @@ const image_api_pk = import.meta.env.VITE_API_IMG_PK;
 const UpdateClass = () => {
   const { id } = useParams();
   const [course, setCourse] = useState(null);
+
+  const navigate = useNavigate();
   useEffect(() => {
     fetch(`http://localhost:5000/courses/instructors/${id}`)
       .then((res) => res.json())
@@ -165,6 +167,14 @@ const UpdateClass = () => {
           Update Class
         </button>
       </form>
+      <div className="w-40 mx-auto mt-10">
+        <button
+          onClick={() => navigate(-1)}
+          className="text-xl font-semibold text-white bg-red-400 hover:bg-black py-3 w-full mx-auto"
+        >
+          Back
+        </button>
+      </div>
     </div>
   );
 };

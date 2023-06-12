@@ -173,7 +173,7 @@ const Dashboard = () => {
   );
 
   return (
-    <div className="grid grid-cols-6">
+    <div className="grid md:grid-cols-6">
       <div className="border-r h-[100vh] border-gray-200 sticky top-0">
         <img src={logo} alt="" className="mt-12 pl-9" />
         {isAdmin && <ul className="pl-9 pb-6">{adminNav}</ul>}
