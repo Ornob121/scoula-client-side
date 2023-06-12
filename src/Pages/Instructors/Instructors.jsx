@@ -4,7 +4,6 @@ import { AuthContext } from "../../Providers/AuthProviders";
 const Instructors = () => {
   const datas = useLoaderData();
   const { webMode } = useContext(AuthContext);
-  //   console.log(datas);
 
   return (
     <div

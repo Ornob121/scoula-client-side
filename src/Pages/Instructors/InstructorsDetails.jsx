@@ -19,10 +19,6 @@ const InstructorsDetails = () => {
   //   console.log(id, "from params");
   const [instructor, setInstructor] = useState("");
   const [classList, setClassList] = useState([]);
-  const [classLength, setClassLength] = useState(false);
-  if (classList.length >= 2) {
-    setClassLength(true);
-  }
   useEffect(() => {
     fetch(`https://scoula-server-side.vercel.app/instructors/${id}`)
       .then((res) => res.json())
@@ -81,7 +77,7 @@ const InstructorsDetails = () => {
           </p>
           <div
             className={`mt-5 ${
-              classLength ? "md:grid grid-cols-2" : ""
+              classList.length >= 2 ? "md:grid grid-cols-2" : ""
             } grid grid-cols-1 gap-7`}
           >
             {classList.map((classes) => {
