@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import { AuthContext } from "../../../Providers/AuthProviders";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SocialLogin = ({ title, text }) => {
   const { googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
   const handleGoogleSingIn = () => {
     googleSignIn()
       .then((result) => {
@@ -24,7 +26,7 @@ const SocialLogin = ({ title, text }) => {
         })
           .then((res) => res.json())
           .then((data) => {
-            navigate("/");
+            navigate(from, { replace: true });
             if (data.acknowledged) {
               Swal.fire({
                 icon: "success",

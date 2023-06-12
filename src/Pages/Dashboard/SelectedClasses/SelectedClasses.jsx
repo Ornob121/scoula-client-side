@@ -3,12 +3,10 @@ import useSelectClass from "../../../Hooks/useSelectClass";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const SelectedClasses = () => {
   const [selectedClasses, refetch] = useSelectClass();
-
-  const navigate = useNavigate();
 
   const totalPrice = selectedClasses.reduce((sum, item) => item.price + sum, 0);
 
@@ -48,7 +46,6 @@ const SelectedClasses = () => {
           className={`btn btn-xs btn-warning ${
             selectedClasses.length < 2 && "btn-disabled"
           }`}
-          onClick={() => navigate(`/dashboard/payment`)}
         >
           pay all
         </button>
@@ -62,6 +59,7 @@ const SelectedClasses = () => {
               <th>Instructor Name</th>
               <th>Available Seats</th>
               <th>Price</th>
+              <th>Payment</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -93,6 +91,15 @@ const SelectedClasses = () => {
                 </td>
                 <td>
                   <p className="text-right">${selected.price}</p>
+                </td>
+                <td>
+                  <p className="">
+                    <Link to={`/dashboard/payment/${selected._id}`}>
+                      <button className="btn-xs bg-yellow-400 hover:text-white rounded-md">
+                        Pay
+                      </button>
+                    </Link>
+                  </p>
                 </td>
                 <th>
                   <button

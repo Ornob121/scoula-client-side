@@ -3,7 +3,6 @@ import logo from "../assets/images/logo.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAdd,
-  faChalkboardTeacher,
   faList,
   faTasks,
   faUsers,
@@ -16,8 +15,10 @@ import {
   FaSchool,
   FaWallet,
 } from "react-icons/fa";
+import useIsAdmin from "../Hooks/useIsAdmin";
 const Dashboard = () => {
-  const isAdmin = false;
+  const [isUserAdmin] = useIsAdmin();
+  const isAdmin = isUserAdmin?.admin;
   const isTeacher = false;
 
   // ! This is the student navigation bar
@@ -59,12 +60,6 @@ const Dashboard = () => {
           <FaWallet className="text-2xl" /> <span>Payment History</span>
         </NavLink>
       </li>
-      {/* <button
-        className="text-lg text-blue-400 pr-5 py-5"
-        onClick={handleMakeTeacher}
-      >
-        Are You A Teacher? Be A Teacher
-      </button> */}
     </>
   );
 
@@ -96,19 +91,6 @@ const Dashboard = () => {
         >
           <FontAwesomeIcon icon={faUsers} className="text-2xl" />{" "}
           <span>Manage Users</span>
-        </NavLink>
-      </li>
-      <li className="text-xl font-semibold pb-8">
-        <NavLink
-          className={({ isActive }) =>
-            isActive
-              ? "text-blue-500 flex gap-3 items-center"
-              : "text-black flex gap-3 items-center"
-          }
-          to="/dashboard/manage-teachers"
-        >
-          <FontAwesomeIcon icon={faChalkboardTeacher} className="text-2xl" />
-          <span>Manage Teachers</span>
         </NavLink>
       </li>
     </>

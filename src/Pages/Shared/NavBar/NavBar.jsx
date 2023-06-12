@@ -2,9 +2,12 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/images/logo.svg";
 import { useContext } from "react";
 import { AuthContext } from "../../../Providers/AuthProviders";
+import useIsAdmin from "../../../Hooks/useIsAdmin";
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isUserAdmin] = useIsAdmin();
+  const isAdmin = isUserAdmin?.admin;
   const handleLogOut = () => {
     logOut()
       .then(() => {})
@@ -42,13 +45,26 @@ const NavBar = () => {
           Classes
         </NavLink>
       </li>
-      {user && (
+      {user &&
+        (isAdmin || (
+          <li className="text-xl">
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "text-blue-500 border-b-2 border-blue-500" : ""
+              }
+              to="/dashboard/selected-classes"
+            >
+              Dashboard
+            </NavLink>
+          </li>
+        ))}
+      {isAdmin && (
         <li className="text-xl">
           <NavLink
             className={({ isActive }) =>
               isActive ? "text-blue-500 border-b-2 border-blue-500" : ""
             }
-            to="/dashboard"
+            to="/dashboard/manage-users"
           >
             Dashboard
           </NavLink>
@@ -60,12 +76,15 @@ const NavBar = () => {
   const logItems = (
     <>
       {user ? (
-        <button
-          onClick={handleLogOut}
-          className="text-xl text-white btn btn-error"
-        >
-          <NavLink>Logout</NavLink>
-        </button>
+        <div className="flex items-center gap-5">
+          <img className="h-12 w-12 rounded-full" src={user.photoURL} alt="" />
+          <button
+            onClick={handleLogOut}
+            className="text-xl text-white btn btn-error"
+          >
+            <NavLink>Logout</NavLink>
+          </button>
+        </div>
       ) : (
         <button className="text-xl btn btn-info">
           <NavLink

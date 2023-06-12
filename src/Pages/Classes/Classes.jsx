@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Classes = () => {
   const [courses, setCourses] = useState([]);
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
   useEffect(() => {
     fetch("http://localhost:5000/courses")
       .then((res) => res.json())
@@ -20,7 +22,7 @@ const Classes = () => {
       instructorEmail: course.instructorEmail,
       instructorName: course.instructorName,
       price: course.coursePrice,
-      email: user.email,
+      email: user?.email,
       classId: course._id,
     };
     fetch("http://localhost:5000/selectedClasses", {
@@ -68,7 +70,9 @@ const Classes = () => {
                 <p>Price: ${course.coursePrice}</p>
               </div>
               <button
-                onClick={() => handleSelectClass(course)}
+                onClick={() => {
+                  user ? handleSelectClass(course) : navigate("/login");
+                }}
                 disabled={!course.availableSeats}
                 className={`w-full py-4 bg-yellow-400 text-xl font-bold hover:bg-black hover:text-white mt-5 ${
                   course.availableSeats ? "" : "btn-disabled"

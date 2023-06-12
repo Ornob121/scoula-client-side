@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SocialLogin from "../Shared/SocialLogin/SocialLogin";
 import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from "react-hook-form";
@@ -11,6 +11,8 @@ const Login = () => {
   const { signInUser } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
 
   const { register, handleSubmit, reset } = useForm();
   const onSubmit = (data) => {
@@ -25,7 +27,7 @@ const Login = () => {
         });
         setError("");
         reset();
-        navigate("/");
+        navigate(from, { replace: true });
       })
       .catch((err) => {
         console.log(err.message);

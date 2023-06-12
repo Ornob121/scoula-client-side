@@ -10,13 +10,16 @@ import Dashboard from "../Layout/Dashboard";
 import SelectedClasses from "../Pages/Dashboard/SelectedClasses/SelectedClasses";
 import PrivateRoute from "./PrivateRoute";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
-import ManageTeachers from "../Pages/Dashboard/Admin/ManageTeachers/ManageTeachers";
+
 import AddAClass from "../Pages/Dashboard/Instructor/AddAClass/AddAClass";
 import MyClasses from "../Pages/Dashboard/Instructor/MyClasses/MyClasses";
 import ManageClasses from "../Pages/Dashboard/Admin/ManageClasses/ManageClasses";
 import UpdateClass from "../Pages/Dashboard/Instructor/MyClasses/UpdateClass";
 import Payment from "../Pages/Dashboard/Payment/Payment";
 import EnrolledClasses from "../Pages/Dashboard/EnrolledClasses/EnrolledClasses";
+import SinglePayment from "../Pages/Dashboard/Payment/SinglePayment";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -64,22 +67,35 @@ const router = createBrowserRouter([
         element: <Payment />,
       },
       {
+        path: "payment/:id",
+        element: <SinglePayment />,
+      },
+      {
         path: "enrolled-classes",
         element: <EnrolledClasses />,
+      },
+      {
+        path: "payment-history",
+        element: <PaymentHistory />,
       },
 
       // ! Admin routes
       {
         path: "manage-classes",
-        element: <ManageClasses />,
+        element: (
+          <AdminRoute>
+            <ManageClasses />
+          </AdminRoute>
+        ),
       },
       {
         path: "manage-users",
-        element: <ManageUsers />,
-      },
-      {
-        path: "manage-teachers",
-        element: <ManageTeachers />,
+        element: (
+          <AdminRoute>
+            {" "}
+            <ManageUsers />
+          </AdminRoute>
+        ),
       },
 
       // ! Teacher routes

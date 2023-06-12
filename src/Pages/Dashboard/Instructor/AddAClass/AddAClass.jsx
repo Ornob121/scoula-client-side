@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 //
 const image_api_pk = import.meta.env.VITE_API_IMG_PK;
-console.log(image_api_pk);
+// console.log(image_api_pk);
 const AddAClass = () => {
   const { user } = useContext(AuthContext);
   console.log(user);

@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import "./CheckOutForm.css";
 
 const CheckOutForm = ({ price, classes }) => {
+  // console.log(classes);
   const stripe = useStripe();
   const [axiosSecure] = useAxiosSecure();
   const elements = useElements();

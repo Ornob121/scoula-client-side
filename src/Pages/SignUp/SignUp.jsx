@@ -7,12 +7,17 @@ import { useForm } from "react-hook-form";
 import { updateProfile } from "firebase/auth";
 import Swal from "sweetalert2";
 
+const image_api_pk = import.meta.env.VITE_API_IMG_PK;
+
 const SignUp = () => {
   const navigate = useNavigate();
   const { createUser } = useContext(AuthContext);
   const [passErr, setPassErr] = useState("");
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
+  const [showCon, setShowCon] = useState(false);
+
+  const image_hosting_url = `https://api.imgbb.com/1/upload?key=${image_api_pk}`;
 
   const {
     register,
@@ -26,42 +31,55 @@ const SignUp = () => {
     } else {
       setPassErr("");
     }
-    createUser(data.email, data.password)
-      .then((result) => {
-        const newUser = result.user;
-        updateProfile(newUser, {
-          displayName: data.name,
-          photoURL: data.photo,
-        });
-        const savedUser = {
-          name: data.name,
-          email: data.email,
-          image: data.photo,
-        };
-        fetch("http://localhost:5000/users", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(savedUser),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.acknowledged) {
-              Swal.fire({
-                icon: "success",
-                title: "Great",
-                text: "User Created Successfully",
+    const formData = new FormData();
+    formData.append("image", data.image[0]);
+    fetch(image_hosting_url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imgData) => {
+        if (imgData.success) {
+          createUser(data.email, data.password)
+            .then((result) => {
+              const image = imgData.data.display_url;
+
+              const newUser = result.user;
+              updateProfile(newUser, {
+                displayName: data.name,
+                photoURL: image,
               });
-              reset();
-            }
-            navigate("/");
-          });
-      })
-      .catch((err) => {
-        console.log(err.message);
-        if (err.message.includes("email-already-in-use")) {
-          setError("This email is already in use");
+              const savedUser = {
+                name: data.name,
+                email: data.email,
+                image: image,
+              };
+              fetch("http://localhost:5000/users", {
+                method: "POST",
+                headers: {
+                  "content-type": "application/json",
+                },
+                body: JSON.stringify(savedUser),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  if (data.acknowledged) {
+                    Swal.fire({
+                      icon: "success",
+                      title: "Great",
+                      text: "User Created Successfully",
+                    });
+                    reset();
+                  }
+                  navigate("/");
+                });
+            })
+            .catch((err) => {
+              console.log(err.message);
+              if (err.message.includes("email-already-in-use")) {
+                setError("This email is already in use");
+              }
+            });
         }
       });
   };
@@ -170,39 +188,37 @@ const SignUp = () => {
             </label>
             <input
               className="border p-3 border-gray-300 w-full text-xl outline-yellow-400 shadow-md"
-              type={show ? "text" : "password"}
+              type={showCon ? "text" : "password"}
               name="confirmPassword"
               {...register("confirmPassword", { required: true })}
             />
 
-            {show ? (
+            {showCon ? (
               <FaEye
                 className=" text-3xl text-yellow-400 relative left-[550px] bottom-10 cursor-pointer"
-                onClick={() => setShow(false)}
+                onClick={() => setShowCon(false)}
               />
             ) : (
               <FaEyeSlash
-                onClick={() => setShow(!show)}
+                onClick={() => setShowCon(!showCon)}
                 className="text-3xl text-blue-500 relative left-[550px] bottom-10 cursor-pointer"
               />
             )}
             <p className="text-red-500">{passErr}</p>
           </div>
-          <div className="pb-4">
+          <div className="pb-6">
             <label
-              className="relative font-medium left-20 bg-white text-xl top-3"
+              className=" font-medium relative top-3 left-40 bg-white text-xl "
               htmlFor=""
             >
-              Photo URL
+              Profile Image
             </label>
             <input
-              className="border p-3 border-gray-300 w-full text-xl outline-yellow-400 shadow-md"
-              type="text"
-              {...register("photo", { required: true })}
+              type="file"
+              className="file-input file-input-bordered file-input-warning w-full"
+              {...register("image")}
+              required
             />
-            {errors.photo && (
-              <span className="text-red-600">Photo URL is required</span>
-            )}
           </div>
           <button
             className="w-full py-3 mt-5 bg-yellow-400 hover:bg-black hover:text-white text-xl font-medium"
