@@ -11,17 +11,17 @@ const PopularInstructors = () => {
   }, []);
   return (
     <div
-      className="px-20 pt-12 pb-10"
+      className="md:px-20 px-5 py-6 pb-8 md:pt-12 md:pb-10"
       style={{
         background: `url(${bg})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
       }}
     >
-      <h2 className="text-3xl text-center pb-5 font-medium">
+      <h2 className="md:text-3xl text-2xl text-center pb-5 font-medium">
         Here Are Some Of Our Popular Instructors
       </h2>
-      <div className=" grid grid-cols-3 gap-10">
+      <div className=" grid grid-cols-1 md:grid-cols-3 gap-10">
         {popularInstructors.map((instructors) => {
           return (
             <div

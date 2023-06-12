@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="relative bottom-0 mb-4">
       <hr className="border-2 my-10 text-gray-200" />
       <form>
-        <div className="grid grid-cols-5 gap-5 px-20 my-16">
+        <div className="grid md:grid-cols-5 grid-cols-1 gap-5 px-10 md:px-20 md:my-16 my-8">
           <input
             className="outline-2 outline-yellow-400 py-3 md:text-xl border border-gray-50 px-4 shadow-sm"
             type="text"
@@ -43,8 +43,8 @@ const Footer = () => {
           </button>
         </div>
       </form>
-      <section className="px-20">
-        <div className=" grid grid-cols-6 my-4 gap-5">
+      <section className="md:px-20 px-10">
+        <div className=" grid md:grid-cols-6 grid-cols-2 my-4 gap-5">
           <div className="col-span-2">
             <img src={logo} alt="" />
             <p className="py-6 text-gray-500">
@@ -77,8 +77,8 @@ const Footer = () => {
           </div>
           <div className="col-span-2 my-4">
             <h5 className="uppercase font-medium pb-8 ">Follow US</h5>
-            <div className="flex">
-              <div className="flex text-4xl">
+            <div className="flex gap-20 md:gap-0">
+              <div className="flex gap-5 md:gap-0 h-10 text-4xl">
                 <Link className="text-gray-500">
                   <FaFacebook />
                 </Link>
@@ -94,9 +94,9 @@ const Footer = () => {
           </div>
         </div>
         <hr className="border-2 my-4 text-gray-200" />
-        <div className="flex justify-between">
+        <div className="md:flex text-center md:text-left justify-between">
           <p>© 2023 Scuola by Shadman Tahmid</p>
-          <div className="flex gap-10">
+          <div className="flex gap-20 mt-5 md:mt-0 md:gap-10">
             <Link>Terms & Conditions</Link>
             <Link>Privacy Policy</Link>
             <Link>Legal</Link>
