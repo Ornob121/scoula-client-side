@@ -12,7 +12,7 @@ const useIsTeacher = () => {
       !loading && !!user?.email && !!localStorage.getItem("access-token"),
     queryFn: async () => {
       const response = await axiosSecure(`/users/teacher/${user?.email}`);
-      console.log(response);
+      //   console.log(response);
       return response.data;
     },
   });

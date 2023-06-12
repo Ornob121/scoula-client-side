@@ -12,7 +12,7 @@ const useIsAdmin = () => {
       !loading && !!user?.email && !!localStorage.getItem("access-token"),
     queryFn: async () => {
       const response = await axiosSecure(`/users/admin/${user?.email}`);
-      console.log(response);
+      //   console.log(response);
       return response.data;
     },
   });
