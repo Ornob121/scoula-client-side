@@ -32,12 +32,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch("http://localhost:5000/popularCourses"),
+        loader: () =>
+          fetch("https://scoula-server-side.vercel.app/popularCourses"),
       },
       {
         path: "/instructors",
         element: <Instructors />,
-        loader: () => fetch("http://localhost:5000/instructors"),
+        loader: () =>
+          fetch("https://scoula-server-side.vercel.app/instructors"),
       },
       {
         path: "/instructors/:id",

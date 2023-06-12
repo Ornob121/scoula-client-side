@@ -1,5 +1,4 @@
 import { Link, useLoaderData } from "react-router-dom";
-import bg from "../../assets/images/footer/insructorBG.png";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProviders";
 const Instructors = () => {

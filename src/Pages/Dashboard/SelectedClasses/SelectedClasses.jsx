@@ -24,7 +24,7 @@ const SelectedClasses = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:5000/selectedClasses/${id}`)
+          .delete(`https://scoula-server-side.vercel.app/selectedClasses/${id}`)
           .then((data) => {
             if (data.data.acknowledged) {
               Swal.fire("Deleted!", "Your file has been deleted.", "success");

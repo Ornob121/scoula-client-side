@@ -24,7 +24,7 @@ const InstructorsDetails = () => {
     setClassLength(true);
   }
   useEffect(() => {
-    fetch(`http://localhost:5000/instructors/${id}`)
+    fetch(`https://scoula-server-side.vercel.app/instructors/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setInstructor(data.result);
@@ -44,7 +44,7 @@ const InstructorsDetails = () => {
       email: user?.email,
       classId: course._id,
     };
-    fetch("http://localhost:5000/selectedClasses", {
+    fetch("https://scoula-server-side.vercel.app/selectedClasses", {
       method: "POST",
       headers: {
         "content-type": "application/json",

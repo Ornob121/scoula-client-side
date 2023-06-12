@@ -17,7 +17,7 @@ const SocialLogin = ({ title, text }) => {
           email: loggedUser.email,
           photo: loggedUser.photoURL,
         };
-        fetch("http://localhost:5000/users", {
+        fetch("https://scoula-server-side.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

@@ -13,7 +13,7 @@ const UpdateClass = () => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    fetch(`http://localhost:5000/courses/instructors/${id}`)
+    fetch(`https://scoula-server-side.vercel.app/courses/instructors/${id}`)
       .then((res) => res.json())
       .then((data) => setCourse(data));
   }, [id]);

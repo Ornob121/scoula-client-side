@@ -7,7 +7,7 @@ const PopularInstructors = () => {
   const { webMode } = useContext(AuthContext);
   const [popularInstructors, setPopularInstructors] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/popularInstructors")
+    fetch("https://scoula-server-side.vercel.app/popularInstructors")
       .then((res) => res.json())
       .then((data) => setPopularInstructors(data));
   }, []);

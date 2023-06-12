@@ -43,7 +43,7 @@ const Testimonial = () => {
   const [reviews, setReviews] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/reviews")
+      .get("https://scoula-server-side.vercel.app/reviews")
       .then((res) => setReviews(res.data))
       .catch((error) => console.log(error));
   }, []);

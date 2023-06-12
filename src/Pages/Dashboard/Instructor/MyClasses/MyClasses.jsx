@@ -23,7 +23,9 @@ const MyClasses = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:5000/courses/instructors/${id}`)
+          .delete(
+            `https://scoula-server-side.vercel.app/courses/instructors/${id}`
+          )
           .then((data) => {
             if (data.data.deletedCount) {
               refetch();

@@ -54,7 +54,7 @@ const SignUp = () => {
                 email: data.email,
                 image: image,
               };
-              fetch("http://localhost:5000/users", {
+              fetch("https://scoula-server-side.vercel.app/users", {
                 method: "POST",
                 headers: {
                   "content-type": "application/json",

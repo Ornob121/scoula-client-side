@@ -18,7 +18,7 @@ const Classes = () => {
   const isAdmin = isUserAdmin?.admin;
 
   useEffect(() => {
-    fetch("http://localhost:5000/courses")
+    fetch("https://scoula-server-side.vercel.app/courses")
       .then((res) => res.json())
       .then((data) => setCourses(data));
   }, []);
@@ -35,7 +35,7 @@ const Classes = () => {
       email: user?.email,
       classId: course._id,
     };
-    fetch("http://localhost:5000/selectedClasses", {
+    fetch("https://scoula-server-side.vercel.app/selectedClasses", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -70,7 +70,7 @@ const Classes = () => {
               key={course._id}
               className={` w-[400px]  ${
                 course.availableSeats === 0 && "bg-red-500"
-              } ${webMode === "dark" ? "bg-black" : "bg-white"}`}
+              } ${webMode === "dark" ? "bg-black" : ""}`}
             >
               <img src={course.image} className="w-[400px] h-[400px]" alt="" />
               <h4 className="text-3xl pl-6 py-3 font-bold text-yellow-400">

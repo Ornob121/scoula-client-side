@@ -65,7 +65,7 @@ const AuthProviders = ({ children }) => {
       if (currentUser && currentUser.email) {
         const user = { email: currentUser.email };
         axios
-          .post("http://localhost:5000/jwt", user)
+          .post("https://scoula-server-side.vercel.app/jwt", user)
           .then((res) => {
             localStorage.setItem("access-token", res.data.token);
             // console.log(res.data.token, "Token");
