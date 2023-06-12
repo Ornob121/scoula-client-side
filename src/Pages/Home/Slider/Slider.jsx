@@ -40,7 +40,7 @@ const Slider = () => {
               </button>
             </div>
           </div>
-          <img className="h-[400px] bg-[bisque] w-auto" src={banner1} />
+          <img className="h-[400px]  w-auto" src={banner1} />
         </div>
         <div className="md:h-[500px] grid grid-cols-2 items-center px-8 md:px-20">
           <img className="h-[400px] w-auto" src={banner2} />

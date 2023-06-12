@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../Providers/AuthProviders";
+import { motion } from "framer-motion";
 
 const PopularInstructors = () => {
   const { webMode } = useContext(AuthContext);
@@ -19,10 +20,16 @@ const PopularInstructors = () => {
       <h2 className="md:text-3xl text-2xl text-center pb-12 font-medium">
         Here Are Some Of Our Popular Instructors
       </h2>
-      <div className=" grid grid-cols-1 md:grid-cols-3 gap-10">
+      <div className=" grid grid-cols-1 md:grid-cols-3 gap-20">
         {popularInstructors.map((instructors) => {
           return (
-            <div
+            <motion.div
+              whileInView={{ scaleY: 1.1 }}
+              transition={{
+                ease: "linear",
+                duration: 2,
+                x: { duration: 1 },
+              }}
               key={instructors._id}
               className={` relative p-8 shadow-xl rounded-lg w-80 h-80 mx-auto text-center ${
                 webMode === "dark"
@@ -44,7 +51,7 @@ const PopularInstructors = () => {
                   Details
                 </button>
               </Link>
-            </div>
+            </motion.div>
           );
         })}
       </div>

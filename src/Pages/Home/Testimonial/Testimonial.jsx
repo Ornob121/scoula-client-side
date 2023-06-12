@@ -9,6 +9,7 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import { FreeMode, Pagination } from "swiper";
 import { AuthContext } from "../../../Providers/AuthProviders";
+import { motion } from "framer-motion";
 
 const Testimonial = () => {
   const { webMode } = useContext(AuthContext);
@@ -73,13 +74,19 @@ const Testimonial = () => {
           {reviews.map((review) => {
             return (
               <SwiperSlide key={review._id}>
-                <div className="relative">
+                <motion.div
+                  initial={{ "--rotate": "0deg" }}
+                  animate={{ "--rotate": "360deg" }}
+                  transition={{ duration: 2, repeat: 0 }}
+                  className="relative"
+                >
                   <img
                     src={review.image}
-                    className="w-24 h-24 mx-auto top-10 border-2 border-yellow-200 rounded-full relative"
+                    className="w-24 h-24 mx-auto top-10 border-2 border-yellow-200 rounded-full z-10 relative"
                     alt=""
                   />
-                  <div
+                  <motion.div
+                    style={{ transform: "rotate(var(--rotate))" }}
                     className={`px-4 py-8 mb-14 mx-5 h-64 text-black rounded-xl mt-4 text-center  ${
                       webMode === "dark"
                         ? "bg-[#36454F] text-white"
@@ -91,8 +98,8 @@ const Testimonial = () => {
                       <h4 className="text-2xl font-bold">{review.name}</h4>
                       <p>{review.profession}</p>
                     </div>
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
               </SwiperSlide>
             );
           })}
