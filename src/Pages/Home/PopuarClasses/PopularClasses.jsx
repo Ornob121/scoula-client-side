@@ -11,7 +11,7 @@ const PopularClasses = () => {
   return (
     <div
       className={`md:py-12 py-8 md:px-20  ${
-        webMode === "dark" ? "bg-[#36454F]" : "bg-[bisque]"
+        webMode === "dark" ? "bg-[#36454F]" : "bg-white"
       }`}
     >
       <h2 className="capitalize md:text-3xl text-2xl font-medium text-center">
